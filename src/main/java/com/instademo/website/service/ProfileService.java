@@ -15,7 +15,6 @@ public class ProfileService {
     ProfileRepository profileRepository;
 
     public List<Profile> getAllProfile() {
-         return profileRepository.findAll();
+        return profileRepository.findAll();
     }
-
 }
