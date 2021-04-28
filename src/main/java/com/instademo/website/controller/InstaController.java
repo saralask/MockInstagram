@@ -1,7 +1,11 @@
 package com.instademo.website.controller;
 
+import java.io.IOException;
+
+import com.instademo.website.domain.ImageModel;
 import com.instademo.website.domain.Post;
 import com.instademo.website.domain.Profile;
+import com.instademo.website.service.ImageService;
 import com.instademo.website.service.PostService;
 import com.instademo.website.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +23,32 @@ public class InstaController {
     @Autowired
     ProfileService profileService;
 
-    //Uploading profile picture
-    @PostMapping("/post")
-    public void postImage(@RequestBody MultipartFile file) throws Exception {
-        postService.postImage(file);
-    }
+    @Autowired
+    ImageService imageService;
 
-    //Get All Posts of same Account holder
+
+    /*Get All Posts of same Account holder*/
     @GetMapping("/getThePost/{id}")
     public Post getThePostById(@PathVariable int id) {
         return postService.getThePostById(id);
     }
 
-    //Get list of Profile of all Account Holders
+    /*Get list of Profile of all Account Holders*/
     @GetMapping("/getAllProfile")
     public List<Profile> getAllProfile() {
         return profileService.getAllProfile();
+    }
+
+    /*get byte array of image*/
+    @GetMapping("/getImageById/{id}")
+    public ImageModel getImage(@PathVariable long id) throws IOException {
+        return imageService.getImage(id);
+    }
+
+    /*upload profile picture <= 300MB*/
+    @PostMapping("/upload")
+    public void uploadImage(@RequestBody MultipartFile file) throws IOException {
+        imageService.uploadImage(file);
     }
 
 }

@@ -12,20 +12,22 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class ImageModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int postId;
+    private Long id;
 
-    @Column(length = 2000)
-    private String caption;
+    private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private ImageModel image;
+    private String type;
 
-    public Post(String caption, ImageModel image) {
-        this.caption = caption;
-        this.image = image;
+    @Column(name = "picByte")
+    private byte[] picByte;
+
+    public ImageModel(String name, String type, byte[] picByte) {
+        this.name = name;
+        this.type = type;
+        this.picByte = picByte;
     }
 }
